@@ -597,3 +597,131 @@ console.log(output); // Even
 ```
 
 ---
+
+
+---
+
+## 📦 Object Destructuring (অবজেক্ট ভেঙে মান বের করা)
+
+```js
+const user = {
+    id: 334,
+    name: "ali",
+    age: 43,
+    education: {
+        degree: "Graduate",
+        school: {
+            name: "Name"
+        }
+    }
+};
+```
+
+---
+
+### ✅ সরল Destructuring:
+
+```js
+const { name, age } = user;
+console.log(name, age); // ali 43
+```
+
+এখানে আমরা `user` অবজেক্ট থেকে সরাসরি `name` ও `age` বের করেছি।
+
+---
+
+### ✅ Nested Destructuring:
+
+```js
+const {
+    education: {
+        degree
+    }
+} = user;
+
+console.log(degree); // Graduate
+```
+
+এখানে `education` অবজেক্টের ভিতরের `degree` কে destructure করা হয়েছে।
+
+---
+
+### ⚠️ Problematic Destructuring with Default Value:
+
+```js
+const {
+    education: {
+        degree
+    } = {}
+} = user;
+
+console.log(degree); // Graduate
+```
+
+🔴 এটি আসলে ঝুঁকিপূর্ণ সিনট্যাক্স।
+
+এটি তখনই ঠিকমতো কাজ করে যখন `education` ফিল্ডটি না থাকে। কিন্তু যদি `education` থাকে, কিন্তু `degree` না থাকে, তাহলে error আসবে না – কিন্তু `degree` হবে `undefined`।
+
+যদি তুমি `education` না থাকার সম্ভাবনা বিবেচনা করো, তাহলে এমনভাবে লেখা উচিত:
+
+---
+
+### ✅ নিরাপদ Nested Destructuring with Optional Chaining:
+
+```js
+const degree = user.education?.degree;
+console.log(degree); // Graduate
+```
+
+অথবা:
+
+```js
+const degree = user.education && user.education.degree;
+```
+
+---
+
+### ⚠️ Variable Name Conflict:
+
+```js
+const {
+    education: {
+        school: name
+    } = {}
+} = user;
+```
+
+এই লাইনে `name` নামে ভেরিয়েবল আগেই ব্যবহার করা হয়েছে। এখন আবার `name` কে `school` এর ভেতর থেকে destructure করে `name` নামে রাখলে আগের `name` ওভাররাইট হয়ে যাবে।
+
+### ✅ তাই এখানে alias ব্যবহার করা উচিৎ:
+
+```js
+const {
+    education: {
+        school: { name: schoolName }
+    }
+} = user;
+
+console.log(schoolName); // Name
+```
+
+---
+
+## 🧠 সংক্ষিপ্ত নোটস:
+
+```js
+// 1️⃣ সরাসরি মান বের করা
+const { name, age } = user;
+
+// 2️⃣ Nested মান বের করা
+const { education: { degree } } = user;
+
+// 3️⃣ alias দিয়ে নাম বদলানো
+const { education: { school: { name: schoolName } } } = user;
+
+// 4️⃣ Optional chaining ব্যবহার করে নিরাপদভাবে মান বের করা
+const degree = user.education?.degree;
+```
+
+---
+
