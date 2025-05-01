@@ -367,3 +367,130 @@ const shallowCopy2 = arr.slice();
 | রেফারেন্স | রেফারেন্স কপি | Heap | Array, Object |
 
 ---
+
+---
+
+## 📦 অবজেক্ট (Object)
+
+অবজেক্ট হলো কী-ভ্যালু পেয়ার-ভিত্তিক একটি ডেটা স্ট্রাকচার। জাভাস্ক্রিপ্টে অবজেক্ট ব্যবহার করে কোনো একটি জিনিসের বৈশিষ্ট্য ও মান সংরক্ষণ করা হয়।
+
+```javascript
+const language = {
+    name: "JS",
+    year: 1995,
+    creator: "Me"
+};
+```
+
+### 🔍 অবজেক্টের সাধারণ মেথডসমূহ:
+
+```javascript
+console.log(Object.keys(language));     // 🔑 ["name", "year", "creator"]
+console.log(Object.values(language));   // 📦 ["JS", 1995, "Me"]
+console.log(Object.entries(language));  // 🧾 [["name", "JS"], ["year", 1995], ...]
+```
+
+### ➕ নতুন প্রপার্টি যোগ করা:
+```javascript
+language.popular = "100";
+console.log(language);
+```
+
+🧠 **নোট:**
+- নতুন প্রপার্টি যোগ করা যায় `dot notation` বা `bracket notation` ব্যবহার করে।
+- অবজেক্টের প্রপার্টি পরিবর্তন করাও সম্ভব।
+
+---
+
+## 🌟 Spread এবং Rest অপারেটর
+
+### ✅ Spread অপারেটর `...`  
+একটি অ্যারে বা অবজেক্টের **shallow copy** তৈরি করতে বা আইটেমগুলোকে আলাদা করতে ব্যবহৃত হয়।
+
+```javascript
+const fruits = ["abc", "cde"];
+const result = [...fruits];
+result.push("efg");
+
+console.log(result); // ["abc", "cde", "efg"]
+console.log(fruits); // ["abc", "cde"]
+```
+
+📌 Spread অপারেটর কপি করে, মূল ডেটা পরিবর্তন করে না।
+
+---
+
+## 🍎 Array of Object (অবজেক্টের অ্যারে)
+
+```javascript
+const fruit = [
+    { name: "sabbie" },
+    { name: "taki" }
+];
+
+const res = [...fruit];
+console.log(res);
+```
+
+🧠 **গুরুত্বপূর্ণ:**  
+এখানে `res` এবং `fruit` এর মধ্যে শ্যালো কপি হয়েছে। মানে:
+- অ্যারেটি আলাদা কপি হলেও,
+- প্রতিটি অবজেক্টের রেফারেন্স একই রয়ে যায়।
+
+🔍 উদাহরণ:
+
+```javascript
+res[0].name = "modified";
+console.log(fruit[0].name); // Output: "modified"
+```
+
+🎯 যদি সম্পূর্ণ deep copy দরকার হয়, তাহলে JSON কৌশল ব্যবহার করা যায়:
+
+```javascript
+const deepCopy = JSON.parse(JSON.stringify(fruit));
+```
+
+---
+
+## ⚙️ arguments এবং rest parameter
+
+### 1️⃣ পুরাতন পদ্ধতি: `arguments` অবজেক্ট
+
+```javascript
+function sum(a, b) {
+    console.log(arguments); // array-like object
+    return a + b;
+}
+sum(3, 4);
+```
+
+⚠️ **মনে রাখো:**  
+`arguments` কেবল **regular function** এ কাজ করে, **arrow function** এ নয়।
+
+---
+
+### 2️⃣ আধুনিক পদ্ধতি: `rest parameter`
+
+```javascript
+function sum(text, ...rest) {
+    const result = rest.reduce((sum, curr) => sum + curr, 0);
+    console.log(`${text} ${result}`);
+}
+
+sum("THE SUM IS:", 3, 4, 5, 6, 7, 8, 9);
+```
+
+🧠 **বুঝে রাখো:**  
+- `...rest` প্যারামিটারগুলিকে একটি অ্যারে হিসেবে ধরে।
+- এটি একাধিক আর্গুমেন্ট হ্যান্ডল করতে কাজে লাগে।
+
+---
+
+### 🔄 Spread vs Rest: পার্থক্য
+
+| চিহ্ন | নাম         | উদ্দেশ্য                         | ব্যবহারের উদাহরণ |
+|------|-------------|-----------------------------------|------------------|
+| `...`| Spread       | মানগুলো আলাদা করে ফেলে বা কপি করে | `...array`       |
+| `...`| Rest         | মানগুলো একত্র করে একটি array বানায় | `function(...args)` |
+
+---
