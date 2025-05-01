@@ -724,4 +724,207 @@ const degree = user.education?.degree;
 ```
 
 ---
+---
+
+## 🔄 Nullish Coalescing, OR, AND অপারেটর
+
+```js
+let lang = null;
+
+console.log(lang ?? "Javascript"); // ✅ Javascript
+console.log(lang || "Javascript"); // ✅ Javascript
+console.log(lang && "Javascript"); // ❌ null
+```
+
+### 🔹 `??` (Nullish Coalescing)
+এটি `null` বা `undefined` হলে ডান পাশের মান নেয়।
+
+```js
+let lang = null;
+console.log(lang ?? "Javascript"); // "Javascript"
+```
+
+---
+
+### 🔹 `||` (Logical OR)
+এটি falsy value (`false`, `0`, `''`, `null`, `undefined`, `NaN`) পেলে ডান পাশের মান নেয়।
+
+```js
+let lang = ""; 
+console.log(lang || "JS"); // "JS"
+```
+
+> `""` একটি falsy value, তাই `JS` প্রিন্ট হয়।
+
+---
+
+### 🔹 `&&` (Logical AND)
+এটি truthy হলে ডান পাশের মান রিটার্ন করে, নয়তো বাম পাশের মানই ফেরত দেয়।
+
+```js
+let lang = null;
+console.log(lang && "JS"); // null
+```
+
+---
+
+## ⚡ Short Circuit ব্যাখ্যা
+
+Short-circuit মানে হচ্ছে JavaScript অপারেটরগুলো (যেমন `&&`, `||`) প্রয়োজনে সব অংশ execute না করে মাঝপথেই থেমে যায়।
+
+```js
+false && anything // ❌ সরাসরি false রিটার্ন
+true || anything  // ✅ সরাসরি true রিটার্ন
+```
+
+---
+
+## ⏳ Async/Await & API Call
+
+```js
+async function getData() {
+    const response = await fetch("https://jsonplaceholder.typicode.com/todos/1");
+    const data = await response.json();
+    console.log(data);
+}
+
+getData();
+```
+
+### 🔹 ব্যাখ্যা:
+- `fetch()` দিয়ে API কল করা হয়।
+- `await` দিয়ে async অপারেশন শেষ না হওয়া পর্যন্ত অপেক্ষা করা হয়।
+- `.json()` মেথড দিয়ে JSON ডেটা পড়া হয়।
+
+### 📦 আউটপুট:
+```js
+{
+  userId: 1,
+  id: 1,
+  title: "delectus aut autem",
+  completed: false
+}
+```
+
+---
+
+## 🔄 Promise Return Example
+
+```js
+function fetchData() {
+    return fetch("https://jsonplaceholder.typicode.com/todos/1")
+        .then(response => response.json())
+        .then(data => console.log(data));
+}
+
+fetchData();
+```
+
+### ✅ ব্যাখ্যা:
+এখানে `fetchData()` একটি Promise রিটার্ন করে এবং `.then()` চেইন করে আমরা ডেটা প্রিন্ট করি।
+
+---
+
+## 📚 সংক্ষেপে:
+
+| অপারেটর | কাজ |
+|---------|------|
+| `??` | null/undefined হলে fallback দেয় |
+| `||` | falsy হলে fallback দেয় |
+| `&&` | truthy হলে পরের মান দেয় |
+| `async/await` | asynchronous কাজকে সহজ করে |
+| `fetch` | API থেকে ডেটা আনার জন্য |
+
+---
+
+---
+
+## 🚀 `async` ফাংশন কী?
+
+`async` একটি কীওয়ার্ড যা JavaScript-এ ফাংশনের আগে ব্যবহার করা হয়। এটি বলে দেয় যে ফাংশনটি **অ্যাসিনক্রোনাস (asynchronous)** হবে এবং এটি **একটি Promise রিটার্ন করবে**।
+
+```js
+async function getData() {
+    return "Hello";
+}
+
+console.log(getData()); // 👉 Promise { 'Hello' }
+```
+
+যেহেতু `getData()` একটি Promise রিটার্ন করে, তাই এর রেজাল্ট পেতে হলে `await` বা `.then()` ব্যবহার করতে হবে।
+
+---
+
+## 🕒 `await` কী?
+
+`await` কেবল `async` ফাংশনের ভিতরে ব্যবহার করা যায়। এটি বলে দেয়—"এই লাইনে অপেক্ষা করো যতক্ষণ না Promise resolve হয়।"
+
+---
+
+## ✅ ব্যবহারিক উদাহরণ:
+
+### 📦 ১. API কল করে ডেটা আনা
+
+```js
+async function fetchTodo() {
+    const response = await fetch("https://jsonplaceholder.typicode.com/todos/1");
+    const data = await response.json();
+    console.log(data);
+}
+
+fetchTodo();
+```
+
+### 🔍 ব্যাখ্যা:
+
+| লাইন | কাজ |
+|------|-----|
+| `await fetch(...)` | API থেকে ডেটা আসা পর্যন্ত অপেক্ষা করে |
+| `await response.json()` | JSON এ রূপান্তর হওয়া পর্যন্ত অপেক্ষা করে |
+| `console.log(data)` | ডেটা কনসোলে দেখায় |
+
+---
+
+## 🔄 async ফাংশন এর ভেতরে অন্য ফাংশন কল করা
+
+তুমি `async` ফাংশনের ভিতর `await` দিয়ে অন্য `async` ফাংশনকেও কল করতে পারো।
+
+```js
+async function getTodoData(id) {
+    const res = await fetch(`https://jsonplaceholder.typicode.com/todos/${id}`);
+    const data = await res.json();
+    return data;
+}
+
+async function showTodo() {
+    const todo = await getTodoData(2);
+    console.log(todo);
+}
+
+showTodo();
+```
+
+---
+
+## ❗ যদি await ছাড়া async ফাংশন কল করো
+
+```js
+const data = getTodoData(2); // ❌ এটা একটা Promise
+console.log(data); // 👉 Promise {...}
+```
+
+তাই সবসময় `await` বা `.then()` ব্যবহার করতে হবে।
+
+---
+
+## 🔐 সংক্ষেপে মনে রাখো:
+
+| টার্ম | কাজ |
+|------|-----|
+| `async` | ফাংশনকে asynchronous করে, Promise রিটার্ন করে |
+| `await` | Promise resolve না হওয়া পর্যন্ত কোডকে থামিয়ে রাখে |
+| `.then()` | Promise এর রেজাল্ট পেতে ব্যবহৃত হয় (বিকল্প `await`) |
+
+---
+
 
