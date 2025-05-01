@@ -494,3 +494,106 @@ sum("THE SUM IS:", 3, 4, 5, 6, 7, 8, 9);
 | `...`| Rest         | মানগুলো একত্র করে একটি array বানায় | `function(...args)` |
 
 ---
+
+---
+
+## ✅ Truthy এবং Falsy মান
+
+জাভাস্ক্রিপ্টে কিছু মান `if` শর্তে **false** হিসাবে বিবেচিত হয়, যেগুলোকে **Falsy Values** বলে।
+
+### 🔻 Falsy Values:
+```js
+false
+0
+''
+null
+undefined
+NaN
+```
+
+এই মানগুলো `if` শর্তে `false` হিসাবে বিবেচিত হবে।
+
+### উদাহরণ:
+
+```js
+const result = NaN;
+
+if (!result) {
+    console.log("Falsy Value");  // ✅ এটি চলবে
+} else {
+    console.log("Truthy Value");
+}
+```
+
+🔍 `!result` মানে হচ্ছে "result যদি falsy হয়" — এখানে `NaN` হচ্ছে falsy, তাই প্রথম ব্লকটি চলবে।
+
+---
+
+## 🎯 Truthy মান:
+
+Falsy ছাড়া বাকি সব কিছুই truthy — যেমন:
+
+```js
+true
+1
+'hello'
+[]
+{}
+function(){}
+```
+
+---
+
+## ✅ Ternary Operator
+
+এটি একটি শর্টকাট `if...else` এর মত।
+
+### গঠন:
+
+```js
+condition ? true_value : false_value
+```
+
+### উদাহরণ:
+
+```js
+const a = 6;
+let result = a % 2 === 0 ? "Even" : "Odd";
+console.log(result); // Even
+```
+
+📌 এখানে `a % 2 === 0` হল শর্ত, যদি সত্য হয় তাহলে `"Even"` রিটার্ন করবে, না হলে `"Odd"`।
+
+---
+
+## 🔁 সমগ্র কোড (পরিষ্কারভাবে):
+
+```js
+// ✅ Truthy এবং Falsy মান
+
+const result = NaN;
+
+if (!result) {
+    console.log("Falsy Value"); // ✅ এটি দেখাবে
+} else {
+    console.log("Truthy Value");
+}
+
+/*
+Falsy Values:
+- false
+- 0
+- ''
+- null
+- undefined
+- NaN
+*/
+
+// ✅ Ternary Operator ব্যবহার
+
+const a = 6;
+let output = a % 2 === 0 ? "Even" : "Odd";
+console.log(output); // Even
+```
+
+---
