@@ -1003,5 +1003,106 @@ function BookList() {
 }
 ```
 
-❓ তুমি কি বুঝতে পারছো এখানে `.map()` কী করছে?
+
+---
+
+## 🌊 React-এ Pure Component রাখা – বাচ্চাদের মতো বুঝি
+
+---
+
+### 🧼 “Pure” মানে কী?
+
+**Pure** মানে: পরিষ্কার, নির্ভরযোগ্য, আর একরকম আচরণ করে।
+
+🧠 React-এ একটা **Pure Component** এমন একটি ফাংশন:
+
+> ➕ "একই ইনপুট দিলে সবসময় একই আউটপুট দেয়"
+
+---
+
+### ✅ উদাহরণ: একটি Pure Component
+
+```jsx
+function Greeting({ name }) {
+  return <h1>Hello, {name}!</h1>;
+}
+```
+
+➡️ এখানে `name` যদি `"Tania"` হয়, তাহলে **সবসময়** দেখা যাবে: `Hello, Tania!`
+এটা হচ্ছে একদম "Pure"।
+
+---
+
+### ❌ Impure Component কেমন?
+
+```jsx
+function Greeting({ name }) {
+  alert('Hello!');
+  return <h1>Hello, {name}!</h1>;
+}
+```
+
+😬 সমস্যা:
+
+* প্রতি বার এই কম্পোনেন্ট render হলে `alert()` চলে
+* ইউজারের অভিজ্ঞতা খারাপ হয়
+* এটা একটা **side effect** (অপ্রত্যাশিত আচরণ)
+
+---
+
+### 📌 React কেন Pure Component চায়?
+
+React এর **Virtual DOM** কাজ করে এই ধারণার উপর:
+
+> “যদি ইনপুট বদলায় না, তাহলে আউটপুটও বদলায় না।”
+
+➡️ তাই pure component হলে React খুব সহজে বুঝে যায়:
+→ "এইটা বদলায়নি, রি-রেন্ডার করার দরকার নাই!"
+
+✅ এতে performance ভালো হয়
+✅ কোড debug করা সহজ হয়
+
+---
+
+### 🧠 Impure Component এর আরও কিছু Example
+
+```jsx
+function Clock() {
+  const now = new Date().toLocaleTimeString();
+  return <p>It is {now}</p>;
+}
+```
+
+➡️ এটা impure, কারণ প্রতি বার render হলে ভিন্ন সময় দেখায়।
+
+---
+
+### 💡 কখন Side Effect দরকার হয়?
+
+যখন তুমি চাইছো:
+
+* API কল করো
+* টাইমার চালাও
+* DOM এ কিছু পরিবর্তন করো
+
+➡️ এসব কাজ করার জন্য React বলে: “তুমি `useEffect()` হুক ব্যবহার করো।”
+
+---
+
+### 🔍 Recap: Pure vs Impure
+
+| Aspect              | Pure Component | Impure Component                     |
+| ------------------- | -------------- | ------------------------------------ |
+| Predictable         | ✅ হ্যাঁ        | ❌ না                                 |
+| Same input → output | ✅ সবসময় এক     | ❌ ভিন্ন হতে পারে                     |
+| Side effect         | ❌ নেই          | ✅ থাকে (alert, API call, timer etc.) |
+| Performance         | ✅ দ্রুত        | ❌ ধীর                                |
+
+---
+
+### 🎯 মনে রাখো:
+
+> "একটা Pure কম্পোনেন্ট হলো ঠিক একটা ক্যালকুলেটরের মত—তুমি 2+2 দিলে সে সবসময় 4-ই দেবে।"
+
+---
 
