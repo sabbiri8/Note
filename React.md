@@ -685,5 +685,115 @@ return <h2>Hello, {formatName(user)}!</h2>;
 > JSX এর ভিতরে `{}` মানে: "এই জায়গায় JavaScript চালাও!"
 
 ---
+---
 
+## 🎁 React-এ Props পাঠানো — ছোটদের মতো সহজ করে!
 
+---
+
+### 🔍 Props মানে কী?
+
+**Props** মানে হলো — “properties”।
+➡️ ঠিক যেমন খেলনার গায়ে লেবেল থাকে — “রঙ: লাল, আকার: বড়”
+➡️ তেমনি React-এ এক কম্পোনেন্টের ভিতরে ডেটা পাঠাতে হলে আমরা **props** ব্যবহার করি।
+
+🟢 তুমি ভাবতে পারো props হলো “কম্পোনেন্টের ইনপুট”।
+
+---
+
+### 🎨 উদাহরণ ১: একটি কম্পোনেন্টে নাম পাঠানো
+
+```jsx
+function Welcome(props) {
+  return <h1>Hello, {props.name}!</h1>;
+}
+
+export default function App() {
+  return <Welcome name="Amina" />;
+}
+```
+
+🧠 এখানে কী হচ্ছে?
+
+* `App` কম্পোনেন্ট `Welcome`-কে `name="Amina"` পাঠিয়েছে
+* `Welcome` কম্পোনেন্ট `props.name` দিয়ে সেটা ব্যবহার করেছে
+
+---
+
+### 🧩 Props কীভাবে কাজ করে?
+
+1. তুমি যেই কম্পোনেন্টে data পাঠাতে চাও, সেখানে `<Component propName="value" />` লিখো
+2. সেই কম্পোনেন্টের function-এর ভিতরে `props.propName` দিয়ে access করো
+
+---
+
+### 🧃 উদাহরণ ২: একাধিক props
+
+```jsx
+function UserInfo(props) {
+  return (
+    <p>
+      Name: {props.name}, Age: {props.age}
+    </p>
+  );
+}
+
+export default function App() {
+  return <UserInfo name="Tuhin" age={10} />;
+}
+```
+
+📦 এখানে `name` আর `age` দুটো props পাঠানো হয়েছে।
+
+---
+
+### 🧠 Advanced: Destructuring করে লেখা
+
+```jsx
+function UserInfo({ name, age }) {
+  return <p>{name} is {age} years old.</p>;
+}
+```
+
+✅ এটা হলো একই জিনিস, কিন্তু সরাসরি props থেকে name আর age বের করে নেওয়া হয়েছে।
+
+---
+
+### 💡 কেন props দরকার?
+
+| কারণ              | ব্যাখ্যা                                        |
+| ----------------- | ----------------------------------------------- |
+| ♻️ Reuse          | একই কম্পোনেন্ট আলাদা ডেটা দিয়ে বারবার ব্যবহার   |
+| 📦 Data flow      | এক কম্পোনেন্ট থেকে অন্য কম্পোনেন্টে info পাঠাতে |
+| 👪 Parent → Child | বাবা কম্পোনেন্ট বাচ্চাকে data দেয়               |
+
+---
+
+### 🎯 মনে রাখো:
+
+> Props মানে — **কম্পোনেন্টকে তার কাজ করার জন্য দরকারি উপাদান দেওয়া!**
+
+---
+
+### 🧪 Mini Exercise:
+
+```jsx
+function Greet({ name }) {
+  return <h2>Hi {name}!</h2>;
+}
+
+export default function App() {
+  return (
+    <>
+      <Greet name="Tania" />
+      <Greet name="Naim" />
+      <Greet name="Liton" />
+    </>
+  );
+}
+```
+
+❓ কত বার Greet কল হলো?
+❓ কী ভ্যালু print হবে?
+
+---
