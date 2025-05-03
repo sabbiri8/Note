@@ -382,6 +382,114 @@ export default Gallery;
 
 ---
 
+---
 
+## 📦 Importing and Exporting Components (React ডকুমেন্টেশন থেকে)
 
+### 🔹 আপনি কী শিখবেন?
+
+React কম্পোনেন্ট এক ফাইল থেকে অন্য ফাইলে **import** ও **export** করার নিয়ম।
+
+---
+
+### 1️⃣ একটি ফাইল থেকে কম্পোনেন্ট **export** করা
+
+React কম্পোনেন্ট সাধারণত আলাদা ফাইলে রাখা হয়। প্রতিটি কম্পোনেন্ট হলো একটি function যা JSX রিটার্ন করে।
+
+```jsx
+// Gallery.js
+
+function Profile() {
+  return (
+    <img
+      src="https://i.imgur.com/MK3eW3As.jpg"
+      alt="Katherine Johnson"
+    />
+  );
+}
+
+export default function Gallery() {
+  return (
+    <section>
+      <h1>Amazing scientists</h1>
+      <Profile />
+      <Profile />
+      <Profile />
+    </section>
+  );
+}
+```
+
+🧠 এখানে `Gallery` কম্পোনেন্টকে `export default` করা হয়েছে, এবং `Profile` কম্পোনেন্ট শুধুমাত্র এই ফাইলে ব্যবহার করা হচ্ছে।
+
+---
+
+### 2️⃣ অন্য ফাইলে সেই কম্পোনেন্ট **import** করা
+
+```jsx
+// App.js
+
+import Gallery from './Gallery.js';
+
+export default function App() {
+  return <Gallery />;
+}
+```
+
+🟢 ডিফল্ট export হলে import করার সময় `{}` ব্যবহার করতে হয় না, আর নাম পরিবর্তনও করা যায়।
+
+---
+
+### 🔁 Named Export ব্যবহার করা (একাধিক কম্পোনেন্ট একসাথে)
+
+```jsx
+// Gallery.js
+
+export function Profile() {
+  return (
+    <img
+      src="https://i.imgur.com/MK3eW3As.jpg"
+      alt="Katherine Johnson"
+    />
+  );
+}
+
+export function Gallery() {
+  return (
+    <section>
+      <h1>Amazing scientists</h1>
+      <Profile />
+      <Profile />
+      <Profile />
+    </section>
+  );
+}
+```
+
+**Import করার সময়:**
+
+```jsx
+import { Gallery, Profile } from './Gallery.js';
+```
+
+🟡 যখন named export ব্যবহার করা হয়, তখন import করার সময় `{ }` দিয়ে নির্দিষ্ট নাম লিখতে হয়।
+
+---
+
+### ✅ সংক্ষিপ্ত নিয়ম
+
+| Export Style | Export Syntax                 | Import Syntax                          |
+| ------------ | ----------------------------- | -------------------------------------- |
+| Default      | `export default MyComponent`  | `import MyComponent from './file'`     |
+| Named        | `export function MyComponent` | `import { MyComponent } from './file'` |
+
+---
+
+### 💡 ভালো অভ্যাস
+
+* একটি কম্পোনেন্ট = একটি ফাইল (default export)
+* যদি অনেক helper ফাংশন থাকে = named export
+* ফাইলের নাম ও কম্পোনেন্টের নাম এক রাখলে কোড পড়া সহজ হয়
+
+---
 
