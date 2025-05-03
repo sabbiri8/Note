@@ -797,3 +797,103 @@ export default function App() {
 ❓ কী ভ্যালু print হবে?
 
 ---
+
+---
+
+## 🎭 Conditional Rendering — সহজ ভাষায় বোঝা
+
+---
+
+### 🐣 “Conditional Rendering” মানে কী?
+
+"Conditional Rendering" মানে হলো — **যদি এটা হয়, তাহলে এটা দেখাও, নাহলে ওটা দেখাও।**
+
+➡️ একদম আমাদের দৈনন্দিন জীবনের মতো:
+**যদি বাইরে বৃষ্টি পড়ে, তাহলে ছাতা নাও। নইলে নাও না।**
+
+React-এ ঠিক এভাবেই UI শর্ত অনুযায়ী দেখানো যায়।
+
+---
+
+## 🧩 উদাহরণ ১: `if` ব্যবহার করে শর্ত অনুযায়ী JSX দেখানো
+
+```jsx
+function Greeting({ isLoggedIn }) {
+  if (isLoggedIn) {
+    return <h1>Welcome back!</h1>;
+  } else {
+    return <h1>Please log in.</h1>;
+  }
+}
+```
+
+📦 এখানে `isLoggedIn` যদি `true` হয়, তাহলে "Welcome back!" দেখাবে, না হলে "Please log in."
+
+---
+
+## 🧃 উদাহরণ ২: Ternary Operator (`? :`) দিয়ে
+
+```jsx
+function Greeting({ isLoggedIn }) {
+  return (
+    <h1>
+      {isLoggedIn ? 'Welcome back!' : 'Please log in.'}
+    </h1>
+  );
+}
+```
+
+✅ এটাও একই কাজ করে, তবে এক লাইনে।
+
+---
+
+## ✅ উদাহরণ ৩: `&&` দিয়ে কেবল কিছু না দেখানোর কৌশল
+
+```jsx
+function Mailbox({ unreadMessages }) {
+  return (
+    <div>
+      <h1>Hello!</h1>
+      {unreadMessages.length > 0 && (
+        <p>You have {unreadMessages.length} unread messages.</p>
+      )}
+    </div>
+  );
+}
+```
+
+📌 যদি `unreadMessages.length` শূন্যের বেশি হয়, তবেই প্যারাগ্রাফটি দেখা যাবে।
+
+---
+
+## 🧠 Bonus: Component ভিতরে Condition
+
+```jsx
+function Button({ isLoggedIn }) {
+  if (isLoggedIn) {
+    return <LogoutButton />;
+  }
+  return <LoginButton />;
+}
+```
+
+🔁 এক কম্পোনেন্টের ভিতরে অন্য কম্পোনেন্ট শর্ত অনুযায়ী রেন্ডার করা যায়।
+
+---
+
+## 🎯 মনে রাখো:
+
+> **React-এ তুমি চাইলে যা দেখাতে চাও, তা শর্ত অনুযায়ী রেন্ডার করতে পারো।**
+> এটা ঠিক যেন UI-র পেছনে ছোট্ট এক বুদ্ধিমান রোবট কাজ করে।
+
+---
+
+## 📌 শর্ত দেখানোর ৩টা কৌশল:
+
+| পদ্ধতি          | উদাহরণ                               | কবে ব্যবহার করবো?  |
+| --------------- | ------------------------------------ | ------------------ |
+| `if...else`     | বড় decision নেওয়ার জন্য             | একাধিক return লাগে |
+| `? :` (ternary) | ছোট ছোট শর্ত, দুইটা অপশন             | ১ লাইনে            |
+| `&&`            | কিছু না দেখানোর জন্য (ছোট condition) | একটাই অপশন দরকার   |
+
+?
