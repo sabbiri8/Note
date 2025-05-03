@@ -897,3 +897,112 @@ function Button({ isLoggedIn }) {
 | `&&`            | কিছু না দেখানোর জন্য (ছোট condition) | একটাই অপশন দরকার   |
 
 ?
+```
+
+---
+
+## 📜 Rendering Lists in React — সহজভাবে শেখা
+
+---
+
+### 🧠 কেন দরকার?
+
+ধরো তোমার কাছে অনেক নাম আছে, যেমন:
+
+```js
+const students = ['Tania', 'Rafi', 'Shuvo'];
+```
+
+তুমি চাও সবাইকে `<li>` হিসেবে দেখাতে।
+আমরা কি বারবার `<li>` লিখবো? না! আমরা **loop** ব্যবহার করবো।
+
+---
+
+### 🔁 React-এ `.map()` দিয়ে লিস্ট বানানো হয়
+
+```jsx
+const students = ['Tania', 'Rafi', 'Shuvo'];
+
+function StudentList() {
+  return (
+    <ul>
+      {students.map(name => <li>{name}</li>)}
+    </ul>
+  );
+}
+```
+
+🧠 এখানে কী হলো?
+
+* `students.map(...)` মানে:
+  → প্রতিটা `name` এর জন্য একটা `<li>` বানাও
+* JSX-এর মধ্যে আমরা `{}` ব্যবহার করি JavaScript চালানোর জন্য
+
+---
+
+### 🔑 Key কেন দরকার?
+
+React-কে বোঝাতে হয়: কোন আইটেমটা বদলেছে, কোনটা নতুন, কোনটা আগের।
+
+✅ এজন্য আমরা `key` ব্যবহার করি:
+
+```jsx
+{students.map(name => <li key={name}>{name}</li>)}
+```
+
+🔐 এই `key` React-কে বলে: "এই আইটেমটা ইউনিক", যেন performance ভালো হয়।
+
+---
+
+### 🧩 যদি অবজেক্টের লিস্ট হয়?
+
+```jsx
+const users = [
+  { id: 1, name: 'Rima' },
+  { id: 2, name: 'Farhan' },
+];
+
+function UserList() {
+  return (
+    <ul>
+      {users.map(user => (
+        <li key={user.id}>{user.name}</li>
+      ))}
+    </ul>
+  );
+}
+```
+
+📦 এখানে `key={user.id}` — কারণ `id` হচ্ছে প্রতিটি ইউজারের ইউনিক পরিচয়।
+
+---
+
+### 💡 Recap:
+
+| কাজ                    | কিভাবে করবো                     |
+| ---------------------- | ------------------------------- |
+| লিস্ট দেখানো           | `.map()` দিয়ে JSX বানাও         |
+| React বুঝবে কোনটা নতুন | `key` দিতে হবে প্রতিটি আইটেমে   |
+| যদি object থাকে        | `item.property` দিয়ে data দেখাও |
+
+---
+
+### 🧪 Mini Practice:
+
+```jsx
+const books = [
+  { id: 101, title: 'Harry Potter' },
+  { id: 102, title: 'The Hobbit' },
+];
+
+function BookList() {
+  return (
+    <ul>
+      {books.map(book => <li key={book.id}>{book.title}</li>)}
+    </ul>
+  );
+}
+```
+
+❓ তুমি কি বুঝতে পারছো এখানে `.map()` কী করছে?
+
