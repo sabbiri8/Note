@@ -583,7 +583,6 @@ return <p>{isLoggedIn ? 'Welcome!' : 'Please login'}</p>;
 
 ---
 
-তুমি জানতে চাচ্ছো [JavaScript in JSX with Curly Braces](https://react.dev/learn/javascript-in-jsx-with-curly-braces) বিষয়টা একেবারে বাচ্চাদের মতো সহজ করে। চলো তাহলে এটা দারুণ সহজ ভাষায়, উদাহরণ দিয়ে বুঝে নেই যেন নতুন কেউও একদম ভয় না পায়।
 
 ---
 
