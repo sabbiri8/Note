@@ -912,10 +912,9 @@ function Button({ isLoggedIn }) {
 ```js
 const students = ['Tania', 'Rafi', 'Shuvo'];
 ```
-
+---
 তুমি চাও সবাইকে `<li>` হিসেবে দেখাতে।
 আমরা কি বারবার `<li>` লিখবো? না! আমরা **loop** ব্যবহার করবো।
-
 ---
 
 ### 🔁 React-এ `.map()` দিয়ে লিস্ট বানানো হয়
